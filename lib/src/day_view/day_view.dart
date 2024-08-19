@@ -29,6 +29,9 @@ class DayView<T extends Object?> extends StatefulWidget {
   /// cell in day calendar.
   final EventTileBuilder<T>? eventTileBuilder;
 
+  /// Display title for full day section.
+  final Widget? fullDayTitle;
+
   /// A function to generate the DateString in the calendar title.
   /// Useful for I18n
   final StringProvider? dateStringBuilder;
@@ -233,6 +236,7 @@ class DayView<T extends Object?> extends StatefulWidget {
   const DayView({
     Key? key,
     this.eventTileBuilder,
+    this.fullDayTitle,
     this.dateStringBuilder,
     this.timeStringBuilder,
     this.controller,
@@ -491,6 +495,7 @@ class DayViewState<T extends Object?> extends State<DayView<T>> {
                             minuteSlotSize: widget.minuteSlotSize,
                             scrollNotifier: _scrollConfiguration,
                             fullDayEventBuilder: _fullDayEventBuilder,
+                            fullDayTitle: widget.fullDayTitle,
                             showHalfHours: widget.showHalfHours,
                             showQuarterHours: widget.showQuarterHours,
                             halfHourIndicatorSettings:

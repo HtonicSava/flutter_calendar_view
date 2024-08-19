@@ -101,6 +101,9 @@ class InternalDayViewPage<T extends Object?> extends StatefulWidget {
   /// Display full day events.
   final FullDayEventBuilder<T> fullDayEventBuilder;
 
+  /// Display title for full day section.
+  final Widget? fullDayTitle;
+
   final ScrollController dayViewScrollController;
 
   /// Flag to display half hours.
@@ -160,6 +163,7 @@ class InternalDayViewPage<T extends Object?> extends StatefulWidget {
     required this.minuteSlotSize,
     required this.scrollNotifier,
     required this.fullDayEventBuilder,
+    this.fullDayTitle,
     required this.dayViewScrollController,
     required this.scrollListener,
     this.lastScrollOffset = 0.0,
@@ -212,13 +216,16 @@ class _InternalDayViewPageState<T extends Object?>
       width: widget.width,
       child: Column(
         children: [
-          Container(
-            width: widget.width -
-                widget.timeLineWidth -
-                widget.hourIndicatorSettings.offset -
-                widget.verticalLineOffset,
-            color: Colors.blue,
-            height: 10,
+          if(widget.fullDayTitle != null && fullDayEventList.isNotEmpty)
+            Align(
+            alignment: Alignment.centerLeft,
+            child: SizedBox(
+              width:
+                  widget.timeLineWidth +
+                  widget.hourIndicatorSettings.offset +
+                  widget.verticalLineOffset,
+              child: widget.fullDayTitle!,
+            ),
           ),
           fullDayEventList.isEmpty
               ? SizedBox.shrink()
