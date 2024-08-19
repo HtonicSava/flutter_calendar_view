@@ -212,6 +212,14 @@ class _InternalDayViewPageState<T extends Object?>
       width: widget.width,
       child: Column(
         children: [
+          Container(
+            width: widget.width -
+                widget.timeLineWidth -
+                widget.hourIndicatorSettings.offset -
+                widget.verticalLineOffset,
+            color: Colors.blue,
+            height: 10,
+          ),
           fullDayEventList.isEmpty
               ? SizedBox.shrink()
               : widget.fullDayEventBuilder(
