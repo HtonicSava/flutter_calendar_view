@@ -216,23 +216,29 @@ class _InternalDayViewPageState<T extends Object?>
       width: widget.width,
       child: Column(
         children: [
-          if(widget.fullDayTitle != null && fullDayEventList.isNotEmpty)
-            Align(
-            alignment: Alignment.centerLeft,
-            child: SizedBox(
-              width:
-                  widget.timeLineWidth +
-                  widget.hourIndicatorSettings.offset +
-                  widget.verticalLineOffset,
-              child: widget.fullDayTitle!,
-            ),
-          ),
           fullDayEventList.isEmpty
               ? SizedBox.shrink()
-              : widget.fullDayEventBuilder(
-                  widget.controller.getFullDayEvent(widget.date),
-                  widget.date,
-                ),
+              : Row(
+                children: [
+                  if(widget.fullDayTitle != null)
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: SizedBox(
+                        width:
+                        widget.timeLineWidth +
+                            widget.hourIndicatorSettings.offset +
+                            widget.verticalLineOffset,
+                        child: widget.fullDayTitle!,
+                      ),
+                    ),
+                  Expanded(
+                    child: widget.fullDayEventBuilder(
+                        widget.controller.getFullDayEvent(widget.date),
+                        widget.date,
+                      ),
+                  ),
+                ],
+              ),
           Expanded(
             child: SingleChildScrollView(
               controller: widget.keepScrollOffset
