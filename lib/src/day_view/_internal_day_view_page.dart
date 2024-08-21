@@ -218,27 +218,33 @@ class _InternalDayViewPageState<T extends Object?>
         children: [
           fullDayEventList.isEmpty
               ? SizedBox.shrink()
-              : Row(
-                children: [
-                  if(widget.fullDayTitle != null)
-                    Align(
-                      alignment: Alignment.centerLeft,
-                      child: SizedBox(
-                        width:
-                        widget.timeLineWidth +
-                            widget.hourIndicatorSettings.offset +
-                            widget.verticalLineOffset,
-                        child: widget.fullDayTitle!,
+              : DecoratedBox(
+                  decoration: BoxDecoration(
+                      border: Border(
+                          bottom: BorderSide(
+                              width: widget.hourIndicatorSettings.height,
+                              color: widget.hourIndicatorSettings.color))),
+                  child: Row(
+                    children: [
+                      if (widget.fullDayTitle != null)
+                        Align(
+                          alignment: Alignment.centerLeft,
+                          child: SizedBox(
+                            width: widget.timeLineWidth +
+                                widget.hourIndicatorSettings.offset +
+                                widget.verticalLineOffset,
+                            child: widget.fullDayTitle!,
+                          ),
+                        ),
+                      Expanded(
+                        child: widget.fullDayEventBuilder(
+                          widget.controller.getFullDayEvent(widget.date),
+                          widget.date,
+                        ),
                       ),
-                    ),
-                  Expanded(
-                    child: widget.fullDayEventBuilder(
-                        widget.controller.getFullDayEvent(widget.date),
-                        widget.date,
-                      ),
+                    ],
                   ),
-                ],
-              ),
+                ),
           Expanded(
             child: SingleChildScrollView(
               controller: widget.keepScrollOffset
